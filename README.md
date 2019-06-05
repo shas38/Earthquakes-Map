@@ -1,4 +1,5 @@
-# using-external-api
+# Earthquakes-Map
+
 This project maps current earthquakes using google map api.
 
 
