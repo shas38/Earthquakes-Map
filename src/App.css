@@ -23,6 +23,19 @@
   color: #61dafb;
 }
 
+.outer {
+  height: 20vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  
+}
+.inner {
+  flex: 1;
+  overflow-y: scroll;
+  background: rgb(214, 175, 175);
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
