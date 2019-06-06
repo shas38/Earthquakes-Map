@@ -46,11 +46,12 @@ class EarthMap extends Component {
   render() {
     return (
       <div className="App">
-          <Container>
-            <GoogleMap
+          <Container className ="outer">
+            <GoogleMap 
               ref={map => {
                 this.map = map;
               }}
+              
               defaultZoom={3}
               defaultCenter={{ lat: 45.4211, lng: -75.6903 }}
               onBoundsChanged={() => {
@@ -61,20 +62,21 @@ class EarthMap extends Component {
                 let newLocations = this.state.locations.filter((location: any) => {
                   const lat = location.geometry.coordinates[1];
                   const lng = location.geometry.coordinates[0];
-
-                  return lng < ne.lng() && lng > sw.lng() && lat > sw.lat() && lat > sw.lat()
+                  if(ne.lng() > sw.lng())
+                    return lng < ne.lng() && lng > sw.lng() && lat < ne.lat() && lat > sw.lat()
+                  else
+                    return (lng < ne.lng() || (lng < 180 && lng > sw.lng())) && (lng > sw.lng() || (lng > -180 && lng < ne.lng())) && lat < ne.lat() && lat > sw.lat()
                 })
-                console.log(ne.lng())
-                console.log(sw.lng())
-                console.log(ne.lat())
-                console.log(ne.lat())
+                console.log('ne', ne.lng())
+                console.log('sw', sw.lng())
+
 
                 this.setState({currentLocations: newLocations})
 
               }}
 
             >
-              {this.state.currentLocations.map((location: any) => (
+              {this.state.locations.map((location: any) => (
                 <Marker
                   key={location.id}
                   position={{ 
